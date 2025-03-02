@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<Version>1.0.0-beta4.250107.1</Version>
+		<Version>1.0.0-beta4.250302.1</Version>
 
 		<Authors>SourceGeneration</Authors>
 		<Description>Blazor state management and action disapatch/subscribe extensions</Description>
@@ -13,6 +13,8 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/SourceGeneration/Blazor.State</PackageProjectUrl>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageOutputPath>./../../../nupkg</PackageOutputPath>
 		<PackageIcon>sg.png</PackageIcon>
 		<PackageTags>blazor,blazor state,flux,state management,action dispatch,action subscribe,source generation</PackageTags>
@@ -23,6 +25,7 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
+		<None Include=".\..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
@@ -33,8 +36,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="SourceGeneration.ActionDispatcher" Version="1.0.0-beta2.241118.2" />
-		<PackageReference Include="SourceGeneration.ChangeTracking" Version="1.0.0-beta4.250107.1" />
+		<PackageReference Include="SourceGeneration.ActionDispatcher" Version="1.0.0-beta2.250302.1" />
+		<PackageReference Include="SourceGeneration.ChangeTracking" Version="1.0.0-beta4.250302.1" />
 	</ItemGroup>
 
 </Project>
