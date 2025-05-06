@@ -16,17 +16,17 @@ This library uses C# preview features `partial property`, Before using this libr
 ```
 
 ```powershell
-Install-Package SourceGeneration.Blazor.State -Version 1.0.0-beta4.250107.1
+Install-Package SourceGeneration.Blazor.State -Version 1.0.0-beta4.250506.0
 ```
 
 ```powershell
-dotnet add package SourceGeneration.Blazor.State --version 1.0.0-beta4.250107.1
+dotnet add package SourceGeneration.Blazor.State --version 1.0.0-beta4.250506.0
 ```
 
 ## DependencyInjection
 
 ```c#
-services.AddBlazorState();
+services.AddActionDispatcher();
 ```
 
 ## State Management
