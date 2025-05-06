@@ -6,15 +6,16 @@ namespace SourceGeneration.Blazor;
 
 public abstract class StateComponentBase : ComponentBase, IHandleEvent, IAsyncDisposable
 {
+    public StateComponentBase() { }
+
     private readonly Dictionary<object, IChangeTracker> _trackers = [];
 
     private bool _isDisposed;
 
     [Inject] public IActionDispatcher Dispatcher { get; private set; } = null!;
-    [Inject] private IActionSubscriber Subscriber { get; set; } = null!;
+    [Inject] public IActionSubscriber Subscriber { get; private set; } = null!;
 
-    protected void Navigate(string uri, bool? forceLoad = null, bool? replace = null) => Dispatcher.Navigate(uri, forceLoad, replace);
-    protected void Navigate(string uri, Dictionary<string, object?>? queryParametes, bool? forceLoad = null, bool? replace = null) => Dispatcher.Navigate(uri, queryParametes, forceLoad, replace);
+    protected void Notify(object action) => Dispatcher.Notify(action);
 
     protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, ChangeTrackingScope scope = ChangeTrackingScope.Root) where TState : State
     {
