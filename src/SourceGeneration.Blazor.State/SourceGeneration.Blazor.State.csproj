@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<Version>1.0.0-beta5.250513.0</Version>
+		<Version>1.0.0-beta5.250513.1</Version>
 
 		<Authors>SourceGeneration</Authors>
 		<Description>Blazor state management and action disapatch/subscribe extensions</Description>
@@ -37,7 +37,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="SourceGeneration.ActionDispatcher" Version="1.0.0-beta2.250506.0" />
-		<PackageReference Include="SourceGeneration.ChangeTracking" Version="1.0.0-beta5.250513.2" />
+		<PackageReference Include="SourceGeneration.ChangeTracking" Version="1.0.0-beta5.250513.3" />
 	</ItemGroup>
 
 </Project>
