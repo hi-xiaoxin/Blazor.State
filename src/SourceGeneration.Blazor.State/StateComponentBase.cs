@@ -17,17 +17,17 @@ public abstract class StateComponentBase : ComponentBase, IHandleEvent, IAsyncDi
 
     protected void Notify(object action) => Dispatcher.Notify(action);
 
-    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, ChangeTrackingScope scope = ChangeTrackingScope.Root) where TState : State
+    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
     {
         return Watch(state, selector, null, null, scope);
     }
 
-    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, Action<TValue> subscriber, ChangeTrackingScope scope = ChangeTrackingScope.Root) where TState : State
+    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, Action<TValue> subscriber, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
     {
         return Watch(state, selector, null, subscriber, scope);
     }
 
-    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, Func<TValue, bool>? predicate, Action<TValue>? subscriber, ChangeTrackingScope scope = ChangeTrackingScope.Root) where TState : State
+    protected IDisposable Watch<TState, TValue>(TState state, Func<TState, TValue> selector, Func<TValue, bool>? predicate, Action<TValue>? subscriber, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
     {
         if (!_trackers.TryGetValue(state, out var tracker))
         {
@@ -37,6 +37,23 @@ public abstract class StateComponentBase : ComponentBase, IHandleEvent, IAsyncDi
         }
         return ((IChangeTracker<TState>)tracker).Watch(selector, predicate, subscriber, scope);
     }
+
+    protected IDisposable Watch<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
+    {
+        return Watch(state, selector, predicate, null, scope);
+    }
+
+    protected IDisposable Watch<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, Action<IEnumerable<TItem>>? subscriber, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
+    {
+        if (!_trackers.TryGetValue(state, out var tracker))
+        {
+            tracker = state.CreateTracker(state);
+            tracker.OnChange(() => InvokeAsync(StateHasChanged));
+            _trackers.Add(state, tracker);
+        }
+        return ((IChangeTracker<TState>)tracker).Watch(selector, predicate, subscriber, scope);
+    }
+
 
     protected void DispatchAction(object action, CancellationToken cancellationToken = default) => Dispatcher.Dispatch(action, cancellationToken);
     protected Task DispatchActionAsync(object action, CancellationToken cancellationToken = default) => Dispatcher.DispatchAsync(action, cancellationToken);
