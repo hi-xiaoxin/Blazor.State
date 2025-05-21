@@ -38,12 +38,12 @@ public abstract class StateComponentBase : ComponentBase, IHandleEvent, IAsyncDi
         return ((IChangeTracker<TState>)tracker).Watch(selector, predicate, subscriber, scope);
     }
 
-    protected IDisposable Watch<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
+    protected IDisposable WatchList<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
     {
-        return Watch(state, selector, predicate, null, scope);
+        return WatchList(state, selector, predicate, null, scope);
     }
 
-    protected IDisposable Watch<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, Action<IEnumerable<TItem>>? subscriber, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
+    protected IDisposable WatchList<TState, TItem>(TState state, Func<TState, ChangeTrackingList<TItem>> selector, Func<TItem, bool> predicate, Action<IEnumerable<TItem>>? subscriber, ChangeTrackingScope scope = ChangeTrackingScope.InstanceProperty) where TState : State
     {
         if (!_trackers.TryGetValue(state, out var tracker))
         {
