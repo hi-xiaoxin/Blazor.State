@@ -16,11 +16,11 @@ This library uses C# preview features `partial property`, Before using this libr
 ```
 
 ```powershell
-Install-Package SourceGeneration.Blazor.State -Version 1.0.0-beta4.250506.0
+Install-Package SourceGeneration.Blazor.State -Version 1.0.0
 ```
 
 ```powershell
-dotnet add package SourceGeneration.Blazor.State --version 1.0.0-beta4.250506.0
+dotnet add package SourceGeneration.Blazor.State --version 1.0.0
 ```
 
 ## DependencyInjection
@@ -97,7 +97,9 @@ Consider the following scenario where a component binds to an `UndoList`, and th
 
 You can specify the scope of the subscribed changes.
 
-- **ChangeTrackingScope.Root** `default value`  
+- **ChangeTrackingScope.Instance**  
+  The subscription only be triggered when there are changes in instance reference of the object itself.
+- **ChangeTrackingScope.InstanceProperty** `default value`  
   The subscription only be triggered when there are changes in the properties of the object itself.
 - **ChangeTrackingScope.Cascading**  
   The subscription will be triggered when there are changes in the properties of the object itself or in the properties of its property objects.
